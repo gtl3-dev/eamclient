@@ -36,7 +36,7 @@ export function SideBar() {
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
-          Sidebar
+          <Link href="/dashboard">Dashboard</Link>
         </Typography>
       </div>
       <List>
@@ -155,12 +155,12 @@ export function SideBar() {
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link href="/settings">Settings</Link>
+          <Link href="/configure">Configure</Link>
         </ListItem>
       </List>
 
-      <CardFooter className="absolute bottom-3 flex items-center space-x-4">
-        <Typography variant="small" color="blue" className="font-normal">
+      <CardFooter className="absolute bottom-3 grid place-items-center [grid-template-areas:'stack']">
+        <Typography variant="small" color="grey" className="font-normal">
           &copy; 2025 EAM Lite. Powered by
         </Typography>
         <div>
@@ -169,7 +169,6 @@ export function SideBar() {
             alt="EAM Lite logo"
             width={200}
             height={20}
-            priority
             className="dark:invert"
           />
         </div>
