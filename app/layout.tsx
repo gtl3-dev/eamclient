@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SideBar } from "@/app/components/SideBar";
 import NavBar from "@/app/components/NavBar";
-import AuthProvider from "./auth/Provider";
+import AuthProvider from "./auth/Provider"; // wrapper for next-auth SessionProvider which has 'use client' directive so we dont have to use it here
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
