@@ -9,7 +9,8 @@ const NavBar = () => {
   const { status, data: session } = useSession();
 
   return (
-    <div className="flex bg-linear-65 from-purple-700 to-sky-500 text-white font-extrabold font- p-3 space-x-4">
+    <div className="flex bg-linear-65 from-purple-700 to-sky-500 text-white font-extrabold p-3 space-x-4">
+      {/* <div className="flex bg-linear-65 from-purple-700 to-sky-500 text-white font-extrabold p-3 space-x-4"> */}
       <div className="flex items-left">
         <Link href="/" className="mr-5">
           {" "}

@@ -21,7 +21,7 @@ import {
   InboxIcon,
   MapIcon,
 } from "@heroicons/react/24/solid";
-
+import { ListItemDetail } from "./ListItemDetails";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 export function SideBar() {
@@ -39,7 +39,9 @@ export function SideBar() {
           <Link href="/dashboard">Dashboard</Link>
         </Typography>
       </div>
+
       <List>
+        {/* START OF FIRST GROUP  */}
         <Accordion
           open={open === 1}
           icon={
@@ -68,24 +70,23 @@ export function SideBar() {
           {open === 1 && (
             <AccordionBody className="py-1">
               <List className="p-0">
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Analytics
-                </ListItem>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Reporting
-                </ListItem>
-                <ListItem>
-                  <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                  </ListItemPrefix>
-                  Projects
-                </ListItem>
+                <ListItemDetail link="/masterdata/location" title="Location" />
+                <ListItemDetail
+                  link="/masterdata/assettypes"
+                  title="Asset Types"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetgrp"
+                  title="Asset Groups"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetitems"
+                  title="Assets/Items"
+                />
+                <ListItemDetail
+                  link="/masterdata/dep"
+                  title="Depreciation Types"
+                />
               </List>
             </AccordionBody>
           )}
@@ -138,29 +139,162 @@ export function SideBar() {
         </Accordion>
         {/* END OF SECOND ACCORDION GROUP  */}
 
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Orders
-        </ListItem>
+        <Accordion
+          open={open === 3}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 3}>
+            <AccordionHeader
+              onClick={() => handleOpen(3)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Orders
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
 
-        <ListItem>
-          <ListItemPrefix>
-            <PresentationChartBarIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Reports
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          <Link href="/configure">Configure</Link>
-        </ListItem>
+          {open === 3 && (
+            <AccordionBody className="py-1">
+              <List className="p-0">
+                <ListItemDetail link="/masterdata/location" title="Location" />
+                <ListItemDetail
+                  link="/masterdata/assettypes"
+                  title="Asset Types"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetgrp"
+                  title="Asset Groups"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetitems"
+                  title="Assets/Items"
+                />
+                <ListItemDetail
+                  link="/masterdata/dep"
+                  title="Depreciation Types"
+                />
+              </List>
+            </AccordionBody>
+          )}
+        </Accordion>
+        {/* END OF THIRD ACCORDION GROUP  */}
+
+        <Accordion
+          open={open === 4}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 4}>
+            <AccordionHeader
+              onClick={() => handleOpen(4)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Reports
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+
+          {open === 4 && (
+            <AccordionBody className="py-1">
+              <List className="p-0">
+                <ListItemDetail link="/masterdata/location" title="Location" />
+                <ListItemDetail
+                  link="/masterdata/assettypes"
+                  title="Asset Types"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetgrp"
+                  title="Asset Groups"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetitems"
+                  title="Assets/Items"
+                />
+                <ListItemDetail
+                  link="/masterdata/dep"
+                  title="Depreciation Types"
+                />
+              </List>
+            </AccordionBody>
+          )}
+        </Accordion>
+        {/* END OF FOURTH ACCORDION GROUP  */}
+
+        <Accordion
+          open={open === 5}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 2 ? "rotate-180" : ""
+              }`}
+            />
+          }
+        >
+          <ListItem className="p-0" selected={open === 5}>
+            <AccordionHeader
+              onClick={() => handleOpen(5)}
+              className="border-b-0 p-3"
+            >
+              <ListItemPrefix>
+                <ShoppingBagIcon className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+                Configure
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+
+          {open === 5 && (
+            <AccordionBody className="py-1">
+              <List className="p-0">
+                <ListItemDetail link="/masterdata/location" title="Location" />
+                <ListItemDetail
+                  link="/masterdata/assettypes"
+                  title="Asset Types"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetgrp"
+                  title="Asset Groups"
+                />
+                <ListItemDetail
+                  link="/masterdata/assetitems"
+                  title="Assets/Items"
+                />
+                <ListItemDetail
+                  link="/masterdata/dep"
+                  title="Depreciation Types"
+                />
+              </List>
+            </AccordionBody>
+          )}
+        </Accordion>
+        {/* END OF FIFTH ACCORDION GROUP  */}
       </List>
 
       <CardFooter className="absolute bottom-3 grid place-items-center [grid-template-areas:'stack']">
-        <Typography variant="small" color="grey" className="font-normal">
+        <Typography variant="small" color="black" className="font-normal">
           &copy; 2025 EAM Lite. Powered by
         </Typography>
         <div>

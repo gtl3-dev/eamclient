@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "./globaloutput.css";
 import { SideBar } from "@/app/components/SideBar";
 import NavBar from "@/app/components/NavBar";
 import AuthProvider from "./auth/Provider"; // wrapper for next-auth SessionProvider which has 'use client' directive so we dont have to use it here
@@ -27,6 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link href="./globaloutput.css" rel="stylesheet"></link>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
