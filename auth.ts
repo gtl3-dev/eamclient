@@ -10,8 +10,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               authorization: {
                 url: "https://appcenter.intuit.com/connect/oauth2",
                 params: {
-                  scope: "com.intuit.quickbooks.accounting openid profile email",
-                  state: "eamlite",
+                  scope: "com.intuit.quickbooks.accounting",
+                  state: "teststate",
                   redirect_uri: process.env.QB_REDIRECT_URI,
                   revocation_endpoint: "https://developer.API.intuit.com/v2/oauth2/tokens/revoke",
                   response_type: "code",

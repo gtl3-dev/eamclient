@@ -16,8 +16,8 @@ import {
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
-  UserCircleIcon,
   Cog6ToothIcon,
+  ClipboardIcon,
   InboxIcon,
   MapIcon,
 } from "@heroicons/react/24/solid";
@@ -110,7 +110,7 @@ export function SideBar() {
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <ClipboardIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 Finance
@@ -145,7 +145,7 @@ export function SideBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                open === 3 ? "rotate-180" : ""
               }`}
             />
           }
@@ -167,22 +167,26 @@ export function SideBar() {
           {open === 3 && (
             <AccordionBody className="py-1">
               <List className="p-0">
-                <ListItemDetail link="/masterdata/location" title="Location" />
                 <ListItemDetail
-                  link="/masterdata/assettypes"
-                  title="Asset Types"
+                  link="/posting/deprun"
+                  title="Post Depreciation Run"
                 />
                 <ListItemDetail
-                  link="/masterdata/assetgrp"
-                  title="Asset Groups"
+                  link="/posting/approvemo"
+                  title="Approve Maintenance Order"
                 />
                 <ListItemDetail
-                  link="/masterdata/assetitems"
-                  title="Assets/Items"
+                  link="/posting/approvepo"
+                  title="Approve Purchase Order"
                 />
                 <ListItemDetail
-                  link="/masterdata/dep"
-                  title="Depreciation Types"
+                  link="/posting/approveso"
+                  title="Approve Service Order"
+                />
+                <ListItemDetail link="/posting/order" title="Post Order" />
+                <ListItemDetail
+                  link="/posting/usage"
+                  title="Post Mileage/Usage"
                 />
               </List>
             </AccordionBody>
@@ -196,7 +200,7 @@ export function SideBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                open === 4 ? "rotate-180" : ""
               }`}
             />
           }
@@ -207,7 +211,7 @@ export function SideBar() {
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <PresentationChartBarIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 Reports
@@ -218,22 +222,25 @@ export function SideBar() {
           {open === 4 && (
             <AccordionBody className="py-1">
               <List className="p-0">
-                <ListItemDetail link="/masterdata/location" title="Location" />
                 <ListItemDetail
-                  link="/masterdata/assettypes"
-                  title="Asset Types"
+                  link="/reports/dep"
+                  title="Depreciation Report"
                 />
                 <ListItemDetail
-                  link="/masterdata/assetgrp"
-                  title="Asset Groups"
+                  link="/reports/assetexpense"
+                  title="Asset Expense Report"
                 />
                 <ListItemDetail
-                  link="/masterdata/assetitems"
-                  title="Assets/Items"
+                  link="/reports/assetconsume"
+                  title="Asset Consumption Report"
                 />
                 <ListItemDetail
-                  link="/masterdata/dep"
-                  title="Depreciation Types"
+                  link="/reports/assetpl"
+                  title="Asset P/L Report"
+                />
+                <ListItemDetail
+                  link="/reports/dep"
+                  title="Depreciation Summary Report"
                 />
               </List>
             </AccordionBody>
@@ -247,7 +254,7 @@ export function SideBar() {
             <ChevronDownIcon
               strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
+                open === 5 ? "rotate-180" : ""
               }`}
             />
           }
@@ -258,7 +265,7 @@ export function SideBar() {
               className="border-b-0 p-3"
             >
               <ListItemPrefix>
-                <ShoppingBagIcon className="h-5 w-5" />
+                <Cog6ToothIcon className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
                 Configure

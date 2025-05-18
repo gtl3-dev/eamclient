@@ -25,7 +25,7 @@ export default async function Home() {
           schedules/costs and inventory levels of supplies.
           <br />
           Log in to configure your Settings. Read the documentation to learn how
-          EAL integrates with QuickBooks&copy;.
+          EAM Lite integrates with QuickBooks&copy;.
         </div>
 
         <div className="flex gap-6 items-center flex-col sm:flex-row">

@@ -8,7 +8,11 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 
-export default function TabsDefault() {
+export default function MasterDataLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex-row m-4">
       <Tabs value="list">
@@ -27,12 +31,15 @@ export default function TabsDefault() {
             unmount: { y: 250 },
           }}
         >
-          <TabPanel key="list" value="list">
-            <div> Body </div>
+          {/* <TabPanel key="list" value="list">
+            <div>{children}</div>
           </TabPanel>
           <TabPanel key="new" value="new">
-            <div> New Form </div>
-          </TabPanel>
+            <div>
+              newrec DATA
+            </div>
+          </TabPanel> */}
+          {children}
         </TabsBody>
       </Tabs>
     </div>

@@ -1,8 +1,19 @@
-// This page is used to configure the application. It is protected by authentication middleware.
-import React from "react";
+"use client";
 
-const AssetGrpPage = () => {
-  return <div>Asset Grp Page</div>;
+import { TabPanel } from "@material-tailwind/react";
+import AssetGrpList from "./AssetGrpList";
+
+const page = () => {
+  return (
+    <>
+      <TabPanel key="list" value="list">
+        <AssetGrpList />
+      </TabPanel>
+      <TabPanel key="new" value="new">
+        <div>newrec DATA</div>
+      </TabPanel>
+    </>
+  );
 };
 
-export default AssetGrpPage;
+export default page;

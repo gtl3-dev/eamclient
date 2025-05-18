@@ -2,14 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from 'next/headers'
 import { redirect } from "next/dist/server/api-utils";
 
-export async function GET(request: NextRequest) {
+export async function GET(request, res) {
     const path = request.nextUrl.pathname;
     const searchParams = request.nextUrl.searchParams;
     console.log("Next URL from INTUIT: ", path);
-    // // Iterate over all parameters
-    // searchParams.forEach((value, name) => {
-    //     console.log(`${name}: ${value}`);
-    // });
+
     const code = searchParams.get('code');
     const realmId = searchParams.get('realmId');
     const state = searchParams.get('state');
@@ -20,6 +17,7 @@ export async function GET(request: NextRequest) {
     // Exchange the authorization code for an access token
     console.log("code: ", code?.trim());
     console.log("Basic: ", `Basic ${Buffer.from(`${process.env.AUTH_QB_ID}:${process.env.AUTH_QB_SECRET}`).toString('base64')}`);
+    
     const tokenResponse = await fetch("https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", {
       method: "POST",
       headers: {
