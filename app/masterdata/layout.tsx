@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
+import { Tabs, TabsHeader, TabsBody, Tab } from "@material-tailwind/react";
 
 export default function MasterDataLayout({
   children,
@@ -16,11 +10,19 @@ export default function MasterDataLayout({
   return (
     <div className="flex-row m-4">
       <Tabs value="list">
-        <TabsHeader className="pt-2 w-100 px-2">
-          <Tab key="list" value="list" className="bg-slate-100 shadow-lg px-3">
+        <TabsHeader className="pt-2 w-100 px-2 space-x-4">
+          <Tab
+            key="list"
+            value="list"
+            className="bg-slate-100 active:bg-purple-200 shadow-lg px-3"
+          >
             List
           </Tab>
-          <Tab key="new" value="new" className="bg-slate-100 shadow-lg px-3">
+          <Tab
+            key="new"
+            value="new"
+            className="bg-slate-100 active:bg-purple-200 shadow-lg px-3"
+          >
             New
           </Tab>
         </TabsHeader>
@@ -31,14 +33,6 @@ export default function MasterDataLayout({
             unmount: { y: 250 },
           }}
         >
-          {/* <TabPanel key="list" value="list">
-            <div>{children}</div>
-          </TabPanel>
-          <TabPanel key="new" value="new">
-            <div>
-              newrec DATA
-            </div>
-          </TabPanel> */}
           {children}
         </TabsBody>
       </Tabs>

@@ -1,8 +1,20 @@
-// This page is used to Depreciation the application. It is protected by authentication middleware.
-import React from "react";
+"use client";
 
-const DepreciationPage = () => {
-  return <div>Depreciation Page</div>;
+import { TabPanel } from "@material-tailwind/react";
+import AssetDepList from "./AssetDepList";
+import AssetDepNew from "./AssetDepNew";
+
+const page = () => {
+  return (
+    <>
+      <TabPanel key="list" value="list">
+        <AssetDepList />
+      </TabPanel>
+      <TabPanel key="new" value="new">
+        <AssetDepNew />
+      </TabPanel>
+    </>
+  );
 };
 
-export default DepreciationPage;
+export default page;

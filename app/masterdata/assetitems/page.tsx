@@ -1,40 +1,20 @@
 "use client";
 
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-} from "@material-tailwind/react";
+import { TabPanel } from "@material-tailwind/react";
+import AssetItemList from "./AssetItemList";
+import AssetItemNew from "./AssetItemNew";
 
-export default function TabsDefault() {
+const page = () => {
   return (
-    <div className="flex-row m-4">
-      <Tabs value="list">
-        <TabsHeader className="pt-2 w-100 px-2">
-          <Tab key="list" value="list" className="bg-slate-100 shadow-lg px-3">
-            List
-          </Tab>
-          <Tab key="new" value="new" className="bg-slate-100 shadow-lg px-3">
-            New
-          </Tab>
-        </TabsHeader>
-        <TabsBody
-          animate={{
-            initial: { y: 250 },
-            mount: { y: 0 },
-            unmount: { y: 250 },
-          }}
-        >
-          <TabPanel key="list" value="list">
-            <div> Body </div>
-          </TabPanel>
-          <TabPanel key="new" value="new">
-            <div> New Form </div>
-          </TabPanel>
-        </TabsBody>
-      </Tabs>
-    </div>
+    <>
+      <TabPanel key="list" value="list">
+        <AssetItemList />
+      </TabPanel>
+      <TabPanel key="new" value="new">
+        <AssetItemNew />
+      </TabPanel>
+    </>
   );
-}
+};
+
+export default page;

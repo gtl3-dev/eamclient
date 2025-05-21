@@ -2,6 +2,7 @@
 
 import { TabPanel } from "@material-tailwind/react";
 import AssetGrpList from "./AssetGrpList";
+import AssetGrpNew from "./AssetGrpNew";
 
 const page = () => {
   return (
@@ -10,7 +11,7 @@ const page = () => {
         <AssetGrpList />
       </TabPanel>
       <TabPanel key="new" value="new">
-        <div>newrec DATA</div>
+        <AssetGrpNew />
       </TabPanel>
     </>
   );

@@ -25,7 +25,7 @@ export async function GET(request, res) {
           method: "POST",
           params: {
             grant_type: "authorization_code",
-            code: code?.trim(),
+            code: `${code}`,
             redirect_uri: "http://localhost:3000/api/auth/intuit",
           },
           headers: {
