@@ -1,5 +1,6 @@
-async function fetchData<T>(stub: string) {
-  console.log("fecthData function:");
+import ConfirmDialog from "./ConfirmDialog";
+
+async function getOneRec<T>(stub: string) {
   const response = await fetch(`${process.env.SERVERAPI_HOST}${stub}`, {
     method: "GET",
     headers: {
@@ -11,8 +12,8 @@ async function fetchData<T>(stub: string) {
   });
 
   const data = await response.json();
-  console.log("Data Response inside FetchData.tsx:", data);
+  console.log("Data Response inside GetOneRec.tsx:", data);
   return data;
 }
 
-export default fetchData;
+export default getOneRec;

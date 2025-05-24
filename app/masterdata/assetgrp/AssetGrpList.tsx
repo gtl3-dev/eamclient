@@ -6,6 +6,8 @@ import fetchData from "@/app/components/FetchData";
 import deleteData from "@/app/components/DeleteData";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
 import { GrpListDatatype } from "@/@types/interfaces";
+import { tw_blue_button, tw_purple_button } from "@/app/lib/tw-constants";
+import Link from "next/link";
 
 export default function AssetGrpList() {
   const TABLE_HEAD = ["Asset Group ID", "Short Name", "Long Name", "Actions"];
@@ -20,7 +22,7 @@ export default function AssetGrpList() {
     async function getData() {
       const res = await fetchData(stub);
       const data = await res;
-      console.log("data inside AssetGrpList: ", data);
+      // console.log("data inside AssetGrpList: ", data);
       setTABLE_ROWS(data);
     }
     getData();
@@ -43,8 +45,11 @@ export default function AssetGrpList() {
     const delstub = `${stub}${id}`;
     const res = await deleteData(delstub);
     // You can then redirect, or refresh a state, etc...
-    setRefreshKey((oldKey) => oldKey + res);
+    setRefreshKey((oldKey: number) => oldKey + 1);
   }
+
+  // //////////////////////////////////////
+  // EDIT data w/o confirmation dialogue
 
   return (
     <>
@@ -116,13 +121,20 @@ export default function AssetGrpList() {
                     </Typography>
                   </td>
                   <td className={classes}>
-                    <Typography
-                      as="a"
-                      href="#"
-                      className="bg-blue-400 hover:bg-slate-500 text-white font-bold py-2 px-2 rounded m-2"
+                    {/* <button
+                      onClick={(e) => {
+                        e.preventDefault;
+                        console.log("EDIT rec:", grps.assetgrpsid);
+                      }}
+                      className={tw_blue_button}
+                    > */}
+                    <Link
+                      type="button"
+                      href={"./assetgrp/edit/" + grps.assetgrpsid}
+                      className={tw_blue_button}
                     >
                       Edit
-                    </Typography>
+                    </Link>
                   </td>
                   <td className={classes}>
                     <button
@@ -133,7 +145,7 @@ export default function AssetGrpList() {
                         setConfirmDelNumber(grps.assetgrpsid);
                         console.log("OPEN status in AssetGrp: ", open);
                       }}
-                      className="bg-purple-300 hover:bg-red-400 text-white font-bold py-2 px-4 rounded m-2"
+                      className={tw_purple_button}
                     >
                       Delete
                     </button>

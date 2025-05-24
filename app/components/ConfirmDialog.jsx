@@ -9,6 +9,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
+import { tw_dialog, tw_dialog_body, tw_dialog_header, tw_grey_button, tw_purple_button } from "../lib/tw-constants";
 
 export default function ConfirmDialog(props) {
   const { title, body, isopen, callbackfunction } = props;
@@ -28,19 +29,19 @@ export default function ConfirmDialog(props) {
       <Dialog
         open={open}
         handler={handleOpen}
-        className="relative m-4 p-4 w-2/5 rounded-lg bg-white shadow-sm"
+        className={tw_dialog}
       >
-        <DialogHeader className="flex shrink-0 items-center pb-4 text-xl font-medium text-slate-800">
+        <DialogHeader className={tw_dialog_header}>
           {title}
         </DialogHeader>
-        <DialogBody className="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light">
+        <DialogBody className={tw_dialog_body}>
           {body}
         </DialogBody>
         <DialogFooter className="flex-row-reverse p-4 space-x-4">
 
           <Button 
             variant="text" 
-            className="bg-purple-300 hover:bg-red-300 text-white font-bold py-2 px-4 rounded m-2" 
+            className={tw_purple_button} 
             onClick={() => {
               setOpen(!open);
               // Confirm action
@@ -51,7 +52,7 @@ export default function ConfirmDialog(props) {
 
           <Button
             variant="text"
-            className="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded m-2"
+            className={tw_grey_button}
             onClick={() => {setOpen(!open)}}
           >
             <span>Cancel</span>
