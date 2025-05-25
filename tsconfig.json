@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/masterdata/@newrec/page.tsx",
-    "app/components/ConfirmDialog.jsx"
+    "app/components/ConfirmDialog.jsx",
+    "app/components/FormField.jsx"
   ],
   "exclude": ["node_modules"]
 }

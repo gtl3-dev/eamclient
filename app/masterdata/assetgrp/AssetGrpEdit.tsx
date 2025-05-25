@@ -19,7 +19,7 @@ interface FormData {
   longname: string;
 }
 
-export default function UpdatableForm() {
+export default function AssetGrpEdit(id: number) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     assetgrpid: 0,
@@ -27,9 +27,8 @@ export default function UpdatableForm() {
     longname: "Long",
   });
 
-  const id = 16;
+  // const id = 16;
   const stub = `/masterdata/assetgrps/${id}`;
-  console.log("STUB at page.tsx: ", id);
 
   // //////////////////////////////////////////////
   // Retrieve Initial Data

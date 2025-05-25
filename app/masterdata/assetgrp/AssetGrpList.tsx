@@ -6,6 +6,7 @@ import fetchData from "@/app/components/FetchData";
 import deleteData from "@/app/components/DeleteData";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
 import { GrpListDatatype } from "@/@types/interfaces";
+import AssetGrpEdit from "./AssetGrpEdit";
 import { tw_blue_button, tw_purple_button } from "@/app/lib/tw-constants";
 import Link from "next/link";
 
@@ -121,20 +122,23 @@ export default function AssetGrpList() {
                     </Typography>
                   </td>
                   <td className={classes}>
-                    {/* <button
+                    <button
                       onClick={(e) => {
                         e.preventDefault;
                         console.log("EDIT rec:", grps.assetgrpsid);
+                        AssetGrpEdit(grps.assetgrpsid);
                       }}
                       className={tw_blue_button}
-                    > */}
-                    <Link
+                    >
+                      Edit
+                    </button>
+                    {/* <Link
                       type="button"
                       href={"./assetgrp/edit/" + grps.assetgrpsid}
                       className={tw_blue_button}
                     >
                       Edit
-                    </Link>
+                    </Link> */}
                   </td>
                   <td className={classes}>
                     <button
