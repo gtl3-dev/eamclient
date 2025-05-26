@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "app/masterdata/@newrec/page.tsx",
     "app/components/ConfirmDialog.jsx",
-    "app/components/FormField.jsx"
+    "app/components/FormField.jsx",
+    "app/masterdata/assetgrp/AssetGrpEdit.jsx"
   ],
   "exclude": ["node_modules"]
 }

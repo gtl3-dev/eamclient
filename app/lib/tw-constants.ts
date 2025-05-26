@@ -11,7 +11,7 @@ export const tw_input_box="block shadow appearance-none border rounded w-2/3 max
 export const tw_input_box_focus="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
 
 // DIALOG
-export const tw_dialog="relative m-4 p-4 w-2/5 rounded-lg bg-white shadow-sm"
+export const tw_dialog="max-w-2xl mx-auto p-6 w-2/5 rounded-lg bg-white shadow-lg"
 export const tw_dialog_header="flex shrink-0 items-center pb-4 text-xl font-medium text-slate-800"
 export const tw_dialog_body="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light"
 

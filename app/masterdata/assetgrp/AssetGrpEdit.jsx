@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Dialog } from "@material-tailwind/react";
+import { redirect } from "next/navigation";
 import {
   tw_green_button,
   tw_grey_button,
@@ -9,27 +11,27 @@ import {
   tw_input_box_focus,
   tw_input_box,
   tw_input_label,
+  tw_dialog,
 } from "@/app/lib/tw-constants";
-import { redirect } from "next/navigation";
 import getOneRec from "@/app/components/GetOneRec";
+import updateData from "@/app/components/UpdateData";
 
-interface FormData {
-  assetgrpid: number;
-  shortname: string;
-  longname: string;
-}
 
-export default function UpdatableForm() {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData>({
+export default function AssetGrpEdit(props) {
+  const {id, isopen } = props
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
     assetgrpid: 0,
-    shortname: "Short",
-    longname: "Long",
+    shortname: "",
+    longname: "",
   });
 
-  const id = 16;
+  // /////////////////////////////////////
+  // Handle State of PopUp
+  const [open, setOpen] = useState(isopen);
+  console.log("OPEN status in dialog: ", open)
+  const handleOpen = () => setOpen(!open);
   const stub = `/masterdata/assetgrps/${id}`;
-  console.log("STUB at page.tsx: ", id);
 
   // //////////////////////////////////////////////
   // Retrieve Initial Data
@@ -43,10 +45,10 @@ export default function UpdatableForm() {
     getData();
   }, []);
 
-  const [originalData, setOriginalData] = useState<FormData>({ ...formData });
+  const [originalData, setOriginalData] = useState({ ...formData });
   // const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  function handleShortNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
+  function handleShortNameChange(e) {
     console.log(e);
     setFormData({
       ...formData,
@@ -54,7 +56,7 @@ export default function UpdatableForm() {
     });
   }
 
-  function handleLongNameChange(e: React.ChangeEvent<HTMLInputElement>): void {
+  function handleLongNameChange(e) {
     console.log(e);
     setFormData({
       ...formData,
@@ -62,28 +64,32 @@ export default function UpdatableForm() {
     });
   }
 
-  const handleSave = async (): Promise<void> => {
+  const handleSave = async () => {
     // setIsLoading(true);
 
-    // Simulate API call
     // await new Promise((resolve) => setTimeout(resolve, 10));
-    setOriginalData({ ...formData });
+    const res = await updateData(stub, formData);
 
+    setOriginalData({ ...formData });
     // Show success message (you could add a toast notification here)
-    console.log("Form saved successfully!", formData);
+    console.log("Form saved successfully!", res);
     redirect("/masterdata/assetgrp");
   };
 
-  const handleCancel = (): void => {
+  const handleCancel = () => {
     setFormData({ ...originalData });
     setIsEditing(false);
     redirect("/masterdata/assetgrp");
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <Dialog
+      open={open}
+      handler={handleOpen}
+      className={tw_dialog}
+    >
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Asset Group Data</h1>
+        <h1 className="text-2xl font-bold text-gray-900">EDIT Asset Group Data</h1>
         <div className="flex gap-2">
           <button onClick={handleSave} className={tw_green_button}>
             Save
@@ -128,6 +134,6 @@ export default function UpdatableForm() {
           your profile, or "Cancel" to discard changes.
         </p>
       </div>
-    </div>
+    </Dialog>
   );
 }

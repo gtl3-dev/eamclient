@@ -51,6 +51,8 @@ export default function AssetGrpList() {
 
   // //////////////////////////////////////
   // EDIT data w/o confirmation dialogue
+  const [openEdit, setOpenEdit] = useState(false);
+  const [editNumber, setEditNumber] = useState(0);
 
   return (
     <>
@@ -63,6 +65,8 @@ export default function AssetGrpList() {
           key={keyValue} // Used for re-rendering dialog
         />
       )}
+
+      {openEdit && <AssetGrpEdit isopen={true} id={editNumber} />}
 
       <Card className="h-full w-full overflow-scroll">
         <table className="w-full min-w-max table-auto text-left">
@@ -126,19 +130,13 @@ export default function AssetGrpList() {
                       onClick={(e) => {
                         e.preventDefault;
                         console.log("EDIT rec:", grps.assetgrpsid);
-                        AssetGrpEdit(grps.assetgrpsid);
+                        setEditNumber(grps.assetgrpsid);
+                        setOpenEdit(true);
                       }}
                       className={tw_blue_button}
                     >
                       Edit
                     </button>
-                    {/* <Link
-                      type="button"
-                      href={"./assetgrp/edit/" + grps.assetgrpsid}
-                      className={tw_blue_button}
-                    >
-                      Edit
-                    </Link> */}
                   </td>
                   <td className={classes}>
                     <button
