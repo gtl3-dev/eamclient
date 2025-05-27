@@ -1,9 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from 'next/headers';
 import axios from "axios";
-import * as AxiosLogger from 'axios-logger';
+import { setAuthCookies, createSession, setAuthCookies_Session, encrypt } from "@/app/lib/session";
 
-const instance = axios.create();
-instance.interceptors.request.use(AxiosLogger.requestLogger);
+// // Request interceptor // used for debugging -- DO NOT DELETE
+// axios.interceptors.request.use(
+//   config => {
+//     // Log request details
+//     console.log('Request:', {
+//       method: config.method.toUpperCase(),
+//       url: config.url,
+//       headers: config.headers,
+//       data: config.data,
+//     });
+//     return config;
+//   },
+//   error => {
+//     // Log request error
+//     console.error('Request Error:', error);
+//     return Promise.reject(error);
+//   }
+// );
+
+// // Response interceptor // used for debugging -- DO NOT DELETE
+// axios.interceptors.response.use(
+//   response => {
+//     // Log response details
+//     console.log('Response:', {
+//       status: response.status,
+//       data: response.data,
+//       headers: response.headers,
+//       config: response.config
+//     });
+//     return response;
+//   },
+//   error => {
+//     // Log response error
+//     console.error('Response Error:', error.response ? error.response : error);
+//     return Promise.reject(error);
+//   }
+// );
 
 export async function GET(request, res) {
     const path = request.nextUrl.pathname;
@@ -20,32 +56,61 @@ export async function GET(request, res) {
     console.log("code: ", code?.trim());
 
     try {
-      const tokenResponse = axios({ 
+      const tokenResponse = await axios({ 
           url: "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", 
           method: "POST",
-          params: {
+          data: {
             grant_type: "authorization_code",
             code: `${code}`,
             redirect_uri: "http://localhost:3000/api/auth/intuit",
           },
           headers: {
-            // Authorization: `Basic ${Buffer.from(`${process.env.AUTH_QB_ID}:${process.env.AUTH_QB_SECRET}`).toString('base64')}`,
-            Authorization: "Basic QUJ2SjN0RnpvOFBZblh4VGV2aDY3cWcxZGdHNjRMRnFYNHI0ZTBxOW5yUVNmQjdZVG46cUxGRGlFeVlLanh3Z2dQZlVKemdQRURkdzBXeFRiNDlmQ0FSVWZrVA==",
+            Authorization: `Basic ${Buffer.from(`${process.env.AUTH_QB_ID}:${process.env.AUTH_QB_SECRET}`).toString('base64')}`,
+            // Authorization: "Basic QUJ2SjN0RnpvOFBZblh4VGV2aDY3cWcxZGdHNjRMRnFYNHI0ZTBxOW5yUVNmQjdZVG46cUxGRGlFeVlLanh3Z2dQZlVKemdQRURkdzBXeFRiNDlmQ0FSVWZrVA==",
             Accept: "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
-      console.log("tokenResponse: ", tokenResponse);
+
+      console.log("REALMID: ", realmId);  
+      // createSession(realmId);                          // used for user access to pages within a session if authorized. See middleware.ts
+      const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)  // 1 day
+      const session = await encrypt({ realmId, expiresAt })
+      const cookieStore = await cookies();
+      // cookieStore.set('eamSession', session);
+      cookieStore.set('eamSession', session, {
+        httpOnly: true,
+        // secure: true,
+        path: '/',
+        sameSite: 'lax',
+        expires: expiresAt,
+      });
+      console.log("END createSession: ", session);
+      
+      const accessToken = tokenResponse.data.access_token;
+      const refreshToken = tokenResponse.data.refresh_token;
+      // setAuthCookies(accessToken, refreshToken);  // used to get qb api requests
+      // setAuthCookies_Session(accessToken, refreshToken, realmId);
+      cookieStore.set('accessToken', accessToken, {
+        httpOnly: true,
+        // secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        sameSite: 'lax'
+      });
+
+      cookieStore.set('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        path: '/',
+        sameSite: 'lax'
+      });
+
+      console.log("END setAuthCookies! ");
+      // res.redirect('/');
     } catch (error) {
         console.log("tokenResponse ERROR: ",error);
+      
     }
    
-    //   // Redirect the user to the desired page
-    //   res.redirect('/dashboard');
-    // } else {
-    //   // Handle error
-    //   res.status(500).send('Authentication failed');
-
-
     return NextResponse.redirect(new URL('/', request.url));
 }

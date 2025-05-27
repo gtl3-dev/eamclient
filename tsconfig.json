@@ -30,7 +30,8 @@
     "app/masterdata/@newrec/page.tsx",
     "app/components/ConfirmDialog.jsx",
     "app/components/FormField.jsx",
-    "app/masterdata/assetgrp/AssetGrpEdit.jsx"
+    "app/masterdata/assetgrp/AssetGrpEdit.jsx",
+    "app/lib/session.js"
   ],
   "exclude": ["node_modules"]
 }

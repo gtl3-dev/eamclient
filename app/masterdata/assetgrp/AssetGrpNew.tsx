@@ -5,6 +5,8 @@ import {
   tw_input_box,
   tw_input_label,
   tw_blue_button,
+  tw_tip_box,
+  tw_tip_text,
 } from "@/app/lib/tw-constants";
 
 function SubmitButton() {
@@ -44,6 +46,14 @@ export default function Page() {
       />
 
       <SubmitButton />
+      <div className={tw_tip_box}>
+        <p className={tw_tip_text}>
+          <strong>Tip:</strong> Create as many records as needed. Click on
+          "List" tab to see your changes.
+          <br /> <br />
+          <strong>Tip:</strong> Short Name should be unique.
+        </p>
+      </div>
     </form>
   );
 }
