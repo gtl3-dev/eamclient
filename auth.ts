@@ -3,9 +3,9 @@ import Google from "next-auth/providers/google";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google,
-            {
+            {                 // INTUIT Provider
               id: "intuit",
-              name: "Intuit",
+              name: "intuit",
               type: "oauth",
               authorization: {
                 url: "https://appcenter.intuit.com/connect/oauth2",
@@ -37,12 +37,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               },
            }    // END custom Intuit provider
   ],
+  session: {
+    strategy: 'jwt',
+  },
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt({ token, user, account, profile }) {
-      // console.log("jwt token", token);           // OK
-      // console.log("jwt user", user);             //undefined
-      // console.log("jwt acct", account);          //undefined
-      // console.log("jwt profile", profile);       //undefined
+      console.log("auth.ts jwt token: ", token);           // OK
+      console.log("jwt user", user);             //undefined
+      console.log("jwt acct", account);          //undefined
+      console.log("jwt profile", profile);       //undefined
       if (profile) {  
         token.id = profile.id;
         token.name = profile.givenName as string || profile.name;
@@ -54,26 +58,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },            // end jwt                                      // https://authjs.dev/guides/extending-the-session
     session({ session, token }) {
-      // console.log("session token: ", token);
       session.user.id = token.id as string
       session.user.name = token.name as string
       session.user.email = token.email as string
       session.user.image = token.picture as string
       session.user.role = token.role as string
       session.user.username = token.username as string
-      console.log("session session: ", session);
+      console.log("auth.ts session: ", session);
       return session
-    },      // end session
-    // async redirect({ url, baseUrl }) {
-    //       console.log("redirect url", url );
-    //       console.log("redirect baseUrl", baseUrl);
-    //       // Allows relative callback URLs
-    //       if (url.startsWith("/")) return `${baseUrl}`
-    //       // Allows callback URLs on the same origin
-    //       else if (new URL(url).origin === baseUrl) return url
-    //       return baseUrl
-    // },
-    
+    },      // end session   
   },      // END callbacks
 })
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { auth } from '@/auth'
+import { decrypt } from './app/lib/session'
 
 // export { auth as middleware } from "@/auth"          // This is the auth middleware that works with AuthJS as per docs
 
@@ -8,11 +9,31 @@ import { auth } from '@/auth'
 const protectedRoutes = ['/dashboard', '/finance', ]
 const publicRoutes = ['/learn', '/api/auth/signin', '/']
 
-export function middleware(request: NextRequest) {
-      // 2. Check if the current route is protected or public
-    const path = request.nextUrl.pathname
-    const isProtectedRoute = protectedRoutes.includes(path)
-    const isPublicRoute = publicRoutes.includes(path)
+export async function middleware(req: NextRequest) {
+ // 2. Check if the current route is protected or public
+  const path = req.nextUrl.pathname
+  const isProtectedRoute = protectedRoutes.includes(path)
+  const isPublicRoute = publicRoutes.includes(path)
+ 
+  // 3. Decrypt the session from the cookie
+  // const cookie = (await cookies()).get('eamSession')?.value
+  // const session = await decrypt(cookie)
+  const session = await auth();
+  console.log("Middleware session: ", session);
+ 
+  // 4. Redirect to / if the user is not authenticated
+  if (isProtectedRoute && !session?.userId) {
+    return NextResponse.redirect(new URL('/', req.nextUrl))
+  }
+ 
+  // 5. Redirect to /dashboard if the user is authenticated
+  if (
+    isPublicRoute &&
+    session?.realmId &&
+    !req.nextUrl.pathname.startsWith('/dashboard')
+  ) {
+    return NextResponse.redirect(new URL('/dashboard', req.nextUrl))
+  }
 
     console.log("Middleware: Next URL path: ", path);
   

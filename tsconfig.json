@@ -31,7 +31,8 @@
     "app/components/ConfirmDialog.jsx",
     "app/components/FormField.jsx",
     "app/masterdata/assetgrp/AssetGrpEdit.jsx",
-    "app/lib/session.js"
+    "app/lib/session.js",
+    "app/components/ErrorModal.jsx"
   ],
   "exclude": ["node_modules"]
 }

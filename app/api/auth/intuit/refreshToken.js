@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from 'next/headers';
 import axios from "axios";
 import { setAuthCookies, createSession, setAuthCookies_Session, encrypt } from "@/app/lib/session";
+import { getRefreshToken } from "@/app/lib/qbapis";
 
 // // Request interceptor // used for debugging -- DO NOT DELETE
 // axios.interceptors.request.use(
@@ -47,26 +48,21 @@ export async function GET(request, res) {
     const code = searchParams.get('code');
     const realmId = searchParams.get('realmId');
     const state = searchParams.get('state');
-    const error = searchParams.get('error');
+    const refreshT = getRefreshToken();
 
     // https://www.developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
-    // Look at Step 12
-    // Exchange the authorization code for an access token
-    console.log("Next URL from INTUIT: ", path);
-    console.log("code: ", code?.trim());
-
+    // Look at Step 15
     try {
       const tokenResponse = await axios({ 
           url: "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer", 
           method: "POST",
           data: {
-            grant_type: "authorization_code",
-            code: `${code}`,
-            redirect_uri: `${process.env.QB_REDIRECT_URI}`,
+            grant_type: "refresh_token",
+            refesh_token: `${refreshT}`,
           },
           headers: {
             Authorization: `Basic ${Buffer.from(`${process.env.AUTH_QB_ID}:${process.env.AUTH_QB_SECRET}`).toString('base64')}`,
-            // Authorization: "Basic QUJ2SjN0RnpvOFBZblh4VGV2aDY3cWcxZGdHNjRMRnFYNHI0ZTBxOW5yUVNmQjdZVG46cUxGRGlFeVlLanh3Z2dQZlVKemdQRURkdzBXeFRiNDlmQ0FSVWZrVA==",
+    
             Accept: "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
           }
@@ -103,7 +99,7 @@ export async function GET(request, res) {
         sameSite: 'lax'
       });
 
-      console.log("END setAuthCookies! ");
+      console.log("END refreshToken.js! ");
     } catch (error) {
         console.log("tokenResponse ERROR: ",error);
       
