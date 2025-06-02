@@ -32,7 +32,8 @@
     "app/components/FormField.jsx",
     "app/masterdata/assetgrp/AssetGrpEdit.jsx",
     "app/lib/session.js",
-    "app/components/ErrorModal.jsx"
+    "app/components/ErrorModal.jsx",
+    "app/reports/dep/page.jsx"
   ],
   "exclude": ["node_modules"]
 }

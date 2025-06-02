@@ -29,7 +29,7 @@ export default function NavBar() {
                 [ UserSettings ]{" "}
               </Link>
               {"     "}
-              {session?.user?.name}{" "}
+              {/* {session?.user?.name}{" "} */}
               <Link href="/api/auth/signout" className="ml-5">
                 {" "}
                 Logout{" "}

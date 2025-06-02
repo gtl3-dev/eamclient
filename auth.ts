@@ -24,13 +24,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               issuer: "https://oauth.platform.intuit.com/op/v1",
               clientId: process.env.AUTH_QB_ID,
               clientSecret: process.env.AUTH_QB_SECRET,
-              profile(profile: any) {
-                console.log('profile ', profile)
-                return {
-                  id: profile.id,
-                  name: profile?.name,
-                }
-              },
+              // checks: ["none"],
+              // profile(profile: any) {
+              //   console.log('profile ', profile)
+              //   return {
+              //     id: profile.id,
+              //     name: profile?.name,
+              //   }
+              // },
               style: {
                 logo: "/QBSymbol.png",
                 text: "#fff"
@@ -40,7 +41,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
+  debug: true,
   callbacks: {
     jwt({ token, user, account, profile }) {
       console.log("auth.ts jwt token: ", token);           // OK
@@ -54,7 +56,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.picture = profile.picture;
         token.role = profile.role;
         token.username = profile.username;
-      }
+      };
       return token;
     },            // end jwt                                      // https://authjs.dev/guides/extending-the-session
     session({ session, token }) {

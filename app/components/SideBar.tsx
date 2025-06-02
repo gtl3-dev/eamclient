@@ -40,7 +40,7 @@ export function SideBar() {
         </Typography>
       </div>
 
-      <List>
+      <List className="grow">
         {/* START OF FIRST GROUP  */}
         <Accordion
           open={open === 1}
@@ -300,8 +300,9 @@ export function SideBar() {
         {/* END OF FIFTH ACCORDION GROUP  */}
       </List>
 
-      <CardFooter className="absolute bottom-3 grid place-items-center [grid-template-areas:'stack']">
-        <Typography variant="small" color="black" className="font-normal">
+      {/* <CardFooter className="bottom-3 grid place-items-center [grid-template-areas:'stack']"> */}
+      <CardFooter className="sticky top-full bottom-3">
+        <Typography variant="small" color="black" className="font-light">
           &copy; 2025 EAM Lite. Powered by
         </Typography>
         <div>

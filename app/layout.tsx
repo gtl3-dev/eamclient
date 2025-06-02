@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import AuthProvider from "./auth/AuthProvider";
+// import { Session } from "next-auth";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globaloutput.css";
 import { SideBar } from "@/app/components/SideBar";
 import NavBar from "@/app/components/NavBar";
+import { auth } from "@/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

@@ -20,3 +20,8 @@ export const tw_dialog_body="relative border-t border-slate-200 py-4 leading-nor
 // TIP BOX
 export const tw_tip_box="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg"
 export const tw_tip_text="text-sm text-blue-800"
+
+// TABLE
+export const tw_table_detail="border border-gray-300 dark:border-gray-700"
+export const tw_table="w-full min-w-max table-auto text-left border-collapse border border-gray-400 dark:border-gray-500"
+export const tw_alt_rows="even:bg-gray-50 odd:bg-white"

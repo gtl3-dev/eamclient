@@ -14,14 +14,14 @@ export default function MasterDataLayout({
           <Tab
             key="list"
             value="list"
-            className="bg-slate-100 active:bg-purple-200 shadow-lg px-3"
+            className="bg-slate-100 active:bg-purple-300 shadow-lg px-3"
           >
             List
           </Tab>
           <Tab
             key="new"
             value="new"
-            className="bg-slate-100 active:bg-purple-200 shadow-lg px-3"
+            className="bg-slate-100 active:bg-purple-300 shadow-lg px-3"
           >
             New
           </Tab>
