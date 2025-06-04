@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 
 export default function NavBar() {
   const session = useSession();
+  // const session = auth();  // doesnt work  on client
 
   console.log("SESSION DATA in NavBar: ", session);
 

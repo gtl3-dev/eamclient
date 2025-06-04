@@ -56,7 +56,7 @@ export async function getRefreshToken() {
 
 export async function getQBdata (qburl) {
     const accessT = await getAccessToken();
-    console.log("accessT in qbapis.js: ", accessT);
+    // console.log("accessT in qbapis.js: ", accessT);
     console.log(qburl);
 
     try {

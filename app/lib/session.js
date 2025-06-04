@@ -28,8 +28,8 @@ export async function createSession(realmId) {
   const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)  // 1 day
   const session = await encrypt({ realmId, expiresAt })
   const cookieStore = await cookies();
-  // cookieStore.set('eamSession', session);
-  cookieStore.set('eamSession', session, {
+  // cookieStore.set('session', session);
+  cookieStore.set('session', session, {
     httpOnly: true,
     // secure: true,
     path: '/',

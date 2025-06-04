@@ -1,3 +1,5 @@
+"use client";
+
 import Form from "next/form";
 import { createNewAssetGrp } from "./actions";
 import { useFormState, useFormStatus } from "react-dom";

@@ -42,7 +42,7 @@ import { getRefreshToken } from "@/app/lib/qbapis";
 //   }
 // );
 
-export async function GET(request, res) {
+export async function handler(request, res) {
     const path = request.nextUrl.pathname;
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get('code');
@@ -62,18 +62,17 @@ export async function GET(request, res) {
           },
           headers: {
             Authorization: `Basic ${Buffer.from(`${process.env.AUTH_QB_ID}:${process.env.AUTH_QB_SECRET}`).toString('base64')}`,
-    
             Accept: "application/json",
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
 
-      console.log("REALMID: ", realmId);  
+      console.log("refreshTOekn.js REALMID: ", realmId);  
       // createSession(realmId);                          // used for user access to pages within a session if authorized. See middleware.ts
       const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)  // 3 days
       const session = await encrypt({ realmId, expiresAt })
       const cookieStore = await cookies();
-      cookieStore.set('eamSession', session, {
+      cookieStore.set('session', session, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',

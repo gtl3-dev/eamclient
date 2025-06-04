@@ -59,3 +59,26 @@ export interface CompanyInfo {
     }];
     };
 
+type Metadata = {
+    CreateTime: string;
+    LastUpdatedTime: string;
+  };
+type AccountRef = { value: string, name: string; };
+export interface Item {    
+  Name: string;
+  Description: string;
+  Active: boolean;
+  FullyQualifiedName: string;
+  Taxable: boolean;
+  UnitPrice: number;
+  Type: string;
+  IncomeAccountRef: AccountRef;
+  PurchaseCost: number;
+  TrackQtyOnHand: boolean;
+  domain: string;
+  sparse: boolean;
+  Id: string;
+  SyncToken: string;
+  MetaData: Metadata;
+}
+  

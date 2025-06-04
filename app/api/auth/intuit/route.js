@@ -3,6 +3,11 @@ import { cookies } from 'next/headers';
 import axios from "axios";
 import { setAuthCookies, createSession, setAuthCookies_Session, encrypt } from "@/app/lib/session";
 
+// // THIS IS RESPONSE BACK from initial QB login
+// https://www.developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
+// Look at Step 12
+// Exchange the authorization code for an access token
+
 // // Request interceptor // used for debugging -- DO NOT DELETE
 // axios.interceptors.request.use(
 //   config => {
@@ -46,12 +51,7 @@ export async function GET(request, res) {
     const searchParams = request.nextUrl.searchParams;
     const code = searchParams.get('code');
     const realmId = searchParams.get('realmId');
-    const state = searchParams.get('state');
-    const error = searchParams.get('error');
 
-    // https://www.developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
-    // Look at Step 12
-    // Exchange the authorization code for an access token
     console.log("Next URL from INTUIT: ", path);
     console.log("code: ", code?.trim());
 
@@ -77,7 +77,7 @@ export async function GET(request, res) {
       const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)  // 3 days
       const session = await encrypt({ realmId, expiresAt })
       const cookieStore = await cookies();
-      cookieStore.set('eamSession', session, {
+      cookieStore.set('session', session, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         path: '/',
@@ -103,7 +103,7 @@ export async function GET(request, res) {
         sameSite: 'lax'
       });
 
-      console.log("END setAuthCookies! ");
+      console.log("END setAuthCookies! in api/auth/intuit/route ");
     } catch (error) {
         console.log("tokenResponse ERROR: ",error);
       

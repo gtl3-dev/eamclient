@@ -33,11 +33,13 @@ function generateData(data) {
 
 export default async function RowReport() {
   const response = await getQBdata(readcompanyinfo_api);
-  console.log(response.success);
-  console.log(response.res);
-
+  // console.log(response.success);
+  // console.log(response.res);
   const data = response.res;
 
+  for (const key in data) {
+  console.log(`DATA: ${key}: ${data[key]}`);
+}
   return (
     <>
       {response.success && (

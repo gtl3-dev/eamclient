@@ -1,13 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { Card } from "@/components/ui/card";
 import fetchData from "@/app/components/FetchData";
 import deleteData from "@/app/components/DeleteData";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
 import { GrpListDatatype } from "@/@types/interfaces";
 import AssetGrpEdit from "./AssetGrpEdit";
-import { tw_blue_button, tw_purple_button } from "@/app/lib/tw-constants";
+import {
+  tw_blue_button,
+  tw_purple_button,
+  tw_table_detail,
+  tw_table_detail2,
+} from "@/app/lib/tw-constants";
 import Link from "next/link";
 
 export default function AssetGrpList() {
@@ -77,13 +82,7 @@ export default function AssetGrpList() {
                   key={head}
                   className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                 >
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="font-normal leading-none opacity-70"
-                  >
-                    {head}
-                  </Typography>
+                  {head}
                 </th>
               ))}
             </tr>
@@ -92,39 +91,13 @@ export default function AssetGrpList() {
           <tbody>
             {TABLE_ROWS?.map((grps: GrpListDatatype) => {
               const isLast = grps.assetgrpsid === TABLE_ROWS?.length - 1;
-              const classes = isLast
-                ? "p-4"
-                : "p-4 border-b border-blue-gray-50";
+              const classes = tw_table_detail;
 
               return (
                 <tr key={grps.assetgrpsid}>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {grps.assetgrpsid}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {grps.shortname}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {grps.longname}
-                    </Typography>
-                  </td>
+                  <td className={classes}>{grps.assetgrpsid}</td>
+                  <td className={classes}>{grps.shortname}</td>
+                  <td className={classes}>{grps.longname}</td>
                   <td className={classes}>
                     <button
                       onClick={(e) => {
