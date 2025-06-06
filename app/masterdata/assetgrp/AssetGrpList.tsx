@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { redirect } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import fetchData from "@/app/components/FetchData";
 import deleteData from "@/app/components/DeleteData";
@@ -11,7 +12,6 @@ import {
   tw_blue_button,
   tw_purple_button,
   tw_table_detail,
-  tw_table_detail2,
 } from "@/app/lib/tw-constants";
 import Link from "next/link";
 
@@ -20,9 +20,9 @@ export default function AssetGrpList() {
   const [TABLE_ROWS, setTABLE_ROWS] = useState<any[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const stub = "/masterdata/assetgrps/";
+  const [isopen, setOpen] = useState(false);
 
   // Retrieve Initial Data and any changes thereafter (updates/dels)
-  const [open, setOpen] = useState(false);
   const [keyValue, setKeyValue] = useState<number>(0); // used for re-rending dialog box
   useEffect(() => {
     async function getData() {
@@ -39,12 +39,18 @@ export default function AssetGrpList() {
   // function w/c is called by delete button.  Calls a Popup "ConfirmDialog.tsx"
   const [confirmDelnum, setConfirmDelNumber] = useState(0);
 
+  // Callback function after succesful del
   function calldelData() {
     console.log(
       "Call Del Data.  Because you can't call async function in a callback"
     );
     console.log("ID to delete: ", confirmDelnum);
     delData(confirmDelnum);
+  }
+
+  // Callback function after succesful save on edit
+  function calleditData() {
+    setRefreshKey((oldKey: number) => oldKey + 1);
   }
 
   async function delData(id: number) {
@@ -58,10 +64,11 @@ export default function AssetGrpList() {
   // EDIT data w/o confirmation dialogue
   const [openEdit, setOpenEdit] = useState(false);
   const [editNumber, setEditNumber] = useState(0);
+  const [keyValueEdit, setKeyValueEdit] = useState<number>(0); // used for re-rending dialog box
 
   return (
     <>
-      {open && (
+      {isopen && (
         <ConfirmDialog
           isopen={true}
           title="Delete Asset Group Record"
@@ -71,10 +78,17 @@ export default function AssetGrpList() {
         />
       )}
 
-      {openEdit && <AssetGrpEdit isopen={true} id={editNumber} />}
+      {openEdit && (
+        <AssetGrpEdit
+          isopen={openEdit}
+          id={editNumber}
+          callbackfunction={() => calleditData()}
+          key={keyValueEdit}
+        />
+      )}
 
       <Card className="h-full w-full overflow-scroll">
-        <table className="w-full min-w-max table-auto text-left">
+        <table>
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
@@ -90,7 +104,7 @@ export default function AssetGrpList() {
 
           <tbody>
             {TABLE_ROWS?.map((grps: GrpListDatatype) => {
-              const isLast = grps.assetgrpsid === TABLE_ROWS?.length - 1;
+              // const isLast = grps.assetgrpsid === TABLE_ROWS?.length - 1;
               const classes = tw_table_detail;
 
               return (
@@ -102,9 +116,11 @@ export default function AssetGrpList() {
                     <button
                       onClick={(e) => {
                         e.preventDefault;
-                        console.log("EDIT rec:", grps.assetgrpsid);
-                        setEditNumber(grps.assetgrpsid);
                         setOpenEdit(true);
+                        setKeyValueEdit((val) => val + 1); // Used for re-rendering dialog
+                        setEditNumber(grps.assetgrpsid);
+                        console.log("EDIT rec:", grps.assetgrpsid);
+                        console.log("OPenedit: ", openEdit);
                       }}
                       className={tw_blue_button}
                     >

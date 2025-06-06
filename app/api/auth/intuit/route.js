@@ -72,7 +72,7 @@ export async function GET(request, res) {
           }
         });
 
-      console.log("REALMID: ", realmId);  
+      console.log("REALMID at api/auth/intuit/route.js: ", realmId);  
       // createSession(realmId);                          // used for user access to pages within a session if authorized. See middleware.ts
       const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)  // 3 days
       const session = await encrypt({ realmId, expiresAt })

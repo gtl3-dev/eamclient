@@ -16,9 +16,8 @@ import {
 import getOneRec from "@/app/components/GetOneRec";
 import updateData from "@/app/components/UpdateData";
 
-
 export default function AssetGrpEdit(props) {
-  const {id, isopen } = props
+  const {id, isopen, callbackfunction } = props
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     assetgrpid: 0,
@@ -29,8 +28,8 @@ export default function AssetGrpEdit(props) {
   // /////////////////////////////////////
   // Handle State of PopUp
   const [open, setOpen] = useState(isopen);
-  console.log("OPEN status in dialog: ", open)
-  const handleOpen = () => setOpen(!open);
+  console.log("OPEN status in AssetGrpEdit dialog: ", isopen)
+  const handleOpen = () => setOpen(isopen);
   const stub = `/masterdata/assetgrps/${id}`;
 
   // //////////////////////////////////////////////
@@ -66,19 +65,21 @@ export default function AssetGrpEdit(props) {
 
   const handleSave = async () => {
     // setIsLoading(true);
-
     // await new Promise((resolve) => setTimeout(resolve, 10));
     const res = await updateData(stub, formData);
 
     setOriginalData({ ...formData });
     // Show success message (you could add a toast notification here)
     console.log("Form saved successfully!", res);
+    setOpen(!open);
+    callbackfunction();
     redirect("/masterdata/assetgrp");
   };
 
   const handleCancel = () => {
     setFormData({ ...originalData });
     setIsEditing(false);
+    setOpen(!open);
     redirect("/masterdata/assetgrp");
   };
 
@@ -91,11 +92,11 @@ export default function AssetGrpEdit(props) {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">EDIT Asset Group Data</h1>
         <div className="flex gap-2">
-          <button onClick={handleSave} className={tw_green_button}>
-            Save
-          </button>
           <button onClick={handleCancel} className={tw_grey_button}>
             Cancel
+          </button>
+          <button onClick={handleSave} className={tw_green_button}>
+            Save
           </button>
         </div>
       </div>
