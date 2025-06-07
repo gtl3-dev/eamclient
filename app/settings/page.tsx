@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { readcompanyinfo_api } from "../lib/qbapis";
+import { readcompanyinfo_api } from "../../lib/qbapis";
 
 // This is the settings page for the application
 export default async function SettingsPage() {

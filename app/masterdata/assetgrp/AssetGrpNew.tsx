@@ -9,7 +9,7 @@ import {
   tw_blue_button,
   tw_tip_box,
   tw_tip_text,
-} from "@/app/lib/tw-constants";
+} from "@/lib/tw-constants";
 
 function SubmitButton() {
   const { pending } = useFormStatus();

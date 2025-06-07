@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AssetLocList from "./AssetLocList";
 import AssetLocNew from "./AssetLocNew";
-import { tw_tab } from "@/app/lib/tw-constants";
+import { tw_tab } from "@/lib/tw-constants";
 
 const page = () => {
   // const [refreshKey1, setRefreshKey] = useState(0);

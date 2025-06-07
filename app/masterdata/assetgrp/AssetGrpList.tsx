@@ -12,7 +12,7 @@ import {
   tw_blue_button,
   tw_purple_button,
   tw_table_detail,
-} from "@/app/lib/tw-constants";
+} from "@/lib/tw-constants";
 import Link from "next/link";
 
 export default function AssetGrpList() {
@@ -39,16 +39,13 @@ export default function AssetGrpList() {
   // function w/c is called by delete button.  Calls a Popup "ConfirmDialog.tsx"
   const [confirmDelnum, setConfirmDelNumber] = useState(0);
 
-  // Callback function after succesful del
+  // Callback function after successful del
   function calldelData() {
-    console.log(
-      "Call Del Data.  Because you can't call async function in a callback"
-    );
-    console.log("ID to delete: ", confirmDelnum);
+    // console.log("ID to delete: ", confirmDelnum);
     delData(confirmDelnum);
   }
 
-  // Callback function after succesful save on edit
+  // Callback function after successful save on edit
   function calleditData() {
     setRefreshKey((oldKey: number) => oldKey + 1);
   }
@@ -112,7 +109,7 @@ export default function AssetGrpList() {
                   <td className={classes}>{grps.assetgrpsid}</td>
                   <td className={classes}>{grps.shortname}</td>
                   <td className={classes}>{grps.longname}</td>
-                  <td className={classes}>
+                  <td className="flex flex-row-reverse">
                     <button
                       onClick={(e) => {
                         e.preventDefault;
@@ -120,14 +117,13 @@ export default function AssetGrpList() {
                         setKeyValueEdit((val) => val + 1); // Used for re-rendering dialog
                         setEditNumber(grps.assetgrpsid);
                         console.log("EDIT rec:", grps.assetgrpsid);
-                        console.log("OPenedit: ", openEdit);
+                        console.log("openEdit: ", openEdit);
                       }}
                       className={tw_blue_button}
                     >
                       Edit
                     </button>
-                  </td>
-                  <td className={classes}>
+                    {"   "}
                     <button
                       onClick={(e) => {
                         e.preventDefault;

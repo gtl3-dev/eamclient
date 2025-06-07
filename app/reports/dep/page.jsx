@@ -1,7 +1,7 @@
 import React from "react";
-import { getQBdata, readcompanyinfo_api } from "@/app/lib/qbapis";
+import { getQBdata, readcompanyinfo_api } from "@/lib/qbapis";
 // import { Typography } from "@material-tailwind/react";
-import { tw_table_detail, tw_table, tw_alt_rows } from "@/app/lib/tw-constants";
+import { tw_table_detail, tw_table, tw_alt_rows } from "@/lib/tw-constants";
 import { CompanyInfo } from "@/@types/interfaces";
 import ErrorModal from "@/app/components/ErrorModal";
 
@@ -32,7 +32,7 @@ function generateData(data) {
 }
 
 export default async function RowReport() {
-  const response = await getQBdata(readcompanyinfo_api);
+  const response = await getQBdata(readcompanyinfo_api, "GET");
   // console.log(response.success);
   // console.log(response.res);
   const data = response.res;

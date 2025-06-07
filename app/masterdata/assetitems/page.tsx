@@ -1,7 +1,7 @@
 import AssetItemList from "./AssetItemList";
 import AssetItemNew from "./AssetItemNew";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { tw_tab } from "@/app/lib/tw-constants";
+import { tw_tab } from "@/lib/tw-constants";
 
 const page = () => {
   return (

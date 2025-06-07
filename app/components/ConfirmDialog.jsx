@@ -9,7 +9,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { tw_dialog, tw_dialog_body, tw_dialog_header, tw_grey_button, tw_purple_button, tw_dialog_bg_opaque } from "../lib/tw-constants";
+import { tw_dialog, tw_dialog_body, tw_dialog_header, tw_grey_button, tw_purple_button, tw_dialog_bg_opaque } from "../../lib/tw-constants";
 
 export default function ConfirmDialog(props) {
   const { title, body, isopen, callbackfunction } = props;

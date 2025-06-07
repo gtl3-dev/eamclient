@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react";
-import { tw_red_button, tw_dialog_header, tw_dialog, tw_dialog_body, tw_dialog_bg_opaque } from '@/app/lib/tw-constants.ts'
+import { tw_red_button, tw_dialog_header, tw_dialog, tw_dialog_body, tw_dialog_bg_opaque } from '@/lib/tw-constants'
 import { redirect } from 'next/navigation'
 
 export default function ErrorModal({title, body}){

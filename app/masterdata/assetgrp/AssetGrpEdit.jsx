@@ -12,7 +12,7 @@ import {
   tw_input_box,
   tw_input_label,
   tw_dialog,
-} from "@/app/lib/tw-constants";
+} from "@/lib/tw-constants";
 import getOneRec from "@/app/components/GetOneRec";
 import updateData from "@/app/components/UpdateData";
 
