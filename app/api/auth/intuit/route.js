@@ -52,7 +52,7 @@ export async function GET(request, res) {
     const code = searchParams.get('code');
     const realmId = searchParams.get('realmId');
 
-    console.log("Next URL from INTUIT: ", path);
+    console.log("Next URL from INTUIT /app/api/auth/intuit/route.js: ", path);
     console.log("code: ", code?.trim());
 
     try {
