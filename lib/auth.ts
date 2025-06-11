@@ -3,6 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 // If your Prisma file is located elsewhere, you can change the path
 import { PrismaClient } from "@/generated/prisma";
 import { genericOAuth } from "better-auth/plugins";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient(); 
 
@@ -56,6 +57,7 @@ export const auth = betterAuth({
                 }, 
                 // Add more providers as needed
             ] 
-        }) 
+        }),   // END of genericOAuth
+        nextCookies(),   // make sure this is the LAST plugin in the array as per DOC: https://www.better-auth.com/docs/integrations/next#server-action-cookies
     ]  // END plugins
 })

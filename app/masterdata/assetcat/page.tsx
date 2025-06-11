@@ -1,12 +1,9 @@
-import AssetTypeList from "./AssetTypesList";
-import AssetTypeNew from "./AssetTypesNew";
+import AssetCatList from "./AssetCatList";
+import AssetNew from "./AssetCatNew";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tw_tab } from "@/lib/tw-constants";
 
-const page = () => {
-  // const [refreshKey1, setRefreshKey] = useState(0);
-  // const PageContext = createContext({ refreshKey1, setRefreshKey });
-
+export default async function Page() {
   return (
     // <PageContext.Provider value={{ refreshKey1, setRefreshKey }}>
     <div className={tw_tab}>
@@ -16,15 +13,13 @@ const page = () => {
           <TabsTrigger value="new">New</TabsTrigger>
         </TabsList>
         <TabsContent key="list" value="list">
-          <AssetTypeList />
+          <AssetCatList />
         </TabsContent>
         <TabsContent key="new" value="new">
-          <AssetTypeNew />
+          <AssetNew />
         </TabsContent>
       </Tabs>
     </div>
     // </PageContext.Provider>
   );
-};
-
-export default page;
+}

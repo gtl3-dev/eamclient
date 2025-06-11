@@ -26,6 +26,5 @@ export const tw_table_detail="p-2.5 border-b border-blue-gray-50 text-sm"
 export const tw_table="w-full min-w-max table-auto text-left border-collapse border border-gray-400 dark:border-gray-500"
 export const tw_alt_rows="even:bg-gray-50 odd:bg-white"
 
-
 // TAB
-export const tw_tab="flex w-full max-w-md flex-col gap-6"
+export const tw_tab="flex w-full flex-col"

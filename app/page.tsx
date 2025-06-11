@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import { AuthProviderOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function Home() {
   return (
@@ -13,7 +12,8 @@ export default async function Home() {
           height={38}
           priority
         />
-        <div className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+        {/* <div className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]"> */}
+        <div className="list-inside list-decimal text-md/8 text-center sm:text-left">
           EAM Lite is a lightweight version of an Enterprise Asset Management
           (EAM) system that functions on top of QuickBooks&copy;.
           <br />
@@ -26,28 +26,6 @@ export default async function Home() {
           <br />
           Log in to configure your Settings. Read the documentation to learn how
           EAM Lite integrates with QuickBooks&copy;.
-        </div>
-
-        <div className="flex gap-6 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="/configure"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Configure
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="/learn"
-          >
-            Read our docs
-          </a>
         </div>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">

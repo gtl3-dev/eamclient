@@ -72,8 +72,8 @@ export function SideBar() {
               <List className="p-0">
                 <ListItemDetail link="/masterdata/location" title="Location" />
                 <ListItemDetail
-                  link="/masterdata/assettypes"
-                  title="Asset Types"
+                  link="/masterdata/assetcat"
+                  title="Asset Category"
                 />
                 <ListItemDetail
                   link="/masterdata/assetgrp"
@@ -223,8 +223,8 @@ export function SideBar() {
             <AccordionBody className="py-1">
               <List className="p-0">
                 <ListItemDetail
-                  link="/reports/dep"
-                  title="Depreciation Report"
+                  link="/reports/companyinfo"
+                  title="Company Information"
                 />
                 <ListItemDetail
                   link="/reports/assetexpense"

@@ -23,7 +23,7 @@ export default async function NavBar() {
           <div>
             <Link href="/settings" className="mr-5">
               {" "}
-              [ UserSettings ]{" "}
+              [ Session Settings ]{" "}
             </Link>
             {"     "}
             {session?.user?.name}{" "}

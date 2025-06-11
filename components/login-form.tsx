@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import LoginIntuit from "./login-intuit";
 import LoginSocial from "./login-social";
 
 export function LoginForm({
@@ -54,7 +53,6 @@ export function LoginForm({
                   Login
                 </Button>
                 <LoginSocial provider="google">Login w/ Google</LoginSocial>
-                <LoginIntuit>Login w/ Intuit</LoginIntuit>
               </div>
             </div>
             <div className="mt-4 text-center text-sm">

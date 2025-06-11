@@ -33,7 +33,7 @@
     "app/masterdata/assetgrp/AssetGrpEdit.jsx",
     "app/lib/session.js",
     "app/components/ErrorModal.jsx",
-    "app/reports/dep/page.jsx",
+    "app/reports/companyinfo/page.jsx",
     "app/masterdata/assetitems/AssetItemList.tsx"
   ],
   "exclude": ["node_modules"]

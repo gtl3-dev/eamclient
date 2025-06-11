@@ -13,6 +13,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff, Mail, Lock, User, AlertCircle } from "lucide-react";
+import { signUp } from "@/lib/auth-client"; //import the auth client
 
 type FormDataType = {
   firstName: string;
@@ -90,30 +91,40 @@ export default function SignupForm() {
     // }
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
-    setIsLoading(true);
-    // Simulate API call
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      alert("Account created successfully!");
-      // Reset form
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    // setIsLoading(true);
+
+    const firstName = String(formData.firstName);
+    const lastName = String(formData.lastName);
+    const name = firstName + " " + lastName;
+    const email = String(formData.email);
+    const password = String(formData.password);
+
+    const { data, error } = await signUp.email(
+      {
+        email, // user email address
+        password, // user password -> min 8 characters by default
+        name, // user display name
+        callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
+      },
+      {
+        onRequest: (ctx) => {
+          //show loading
+        },
+        onSuccess: (ctx) => {
+          //redirect to the dashboard or sign in page
+        },
+        onError: (ctx) => {
+          // display the error message
+          alert(ctx.error.message);
+        },
+      }
+    );
+  }
 
   const handleGoogleSignup = async () => {
     setIsLoading(true);
@@ -179,149 +190,151 @@ export default function SignupForm() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName">First name</Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      className={`pl-10 ${errors?.firstName ? "border-red-500" : ""}`}
+                    />
+                  </div>
+                  {errors?.firstName && (
+                    <p className="text-sm text-red-500 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {errors.firstName}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="lastName">Last name</Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      className={`pl-10 ${errors?.lastName ? "border-red-500" : ""}`}
+                    />
+                  </div>
+                  {errors?.lastName && (
+                    <p className="text-sm text-red-500 flex items-center">
+                      <AlertCircle className="h-3 w-3 mr-1" />
+                      {errors.lastName}
+                    </p>
+                  )}
+                </div>
+              </div>
+
               <div className="space-y-2">
-                <Label htmlFor="firstName">First name</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    placeholder="John"
-                    value={formData.firstName}
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
                     onChange={handleInputChange}
-                    className={`pl-10 ${errors?.firstName ? "border-red-500" : ""}`}
+                    className={`pl-10 ${errors?.email ? "border-red-500" : ""}`}
                   />
                 </div>
-                {errors?.firstName && (
+                {errors?.email && (
                   <p className="text-sm text-red-500 flex items-center">
                     <AlertCircle className="h-3 w-3 mr-1" />
-                    {errors.firstName}
+                    {errors.email}
                   </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last name</Label>
+                <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    placeholder="Doe"
-                    value={formData.lastName}
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={formData.password}
                     onChange={handleInputChange}
-                    className={`pl-10 ${errors?.lastName ? "border-red-500" : ""}`}
+                    className={`pl-10 pr-10 ${errors?.password ? "border-red-500" : ""}`}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
                 </div>
-                {errors?.lastName && (
+                {errors?.password && (
                   <p className="text-sm text-red-500 flex items-center">
                     <AlertCircle className="h-3 w-3 mr-1" />
-                    {errors.lastName}
+                    {errors.password}
                   </p>
                 )}
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`pl-10 ${errors?.email ? "border-red-500" : ""}`}
-                />
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className={`pl-10 pr-10 ${errors?.confirmPassword ? "border-red-500" : ""}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
+                {errors?.confirmPassword && (
+                  <p className="text-sm text-red-500 flex items-center">
+                    <AlertCircle className="h-3 w-3 mr-1" />
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
-              {errors?.email && (
-                <p className="text-sm text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  {errors.email}
-                </p>
-              )}
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className={`pl-10 pr-10 ${errors?.password ? "border-red-500" : ""}`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-              {errors?.password && (
-                <p className="text-sm text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  {errors.password}
-                </p>
-              )}
+              <Button
+                className="w-full h-11 bg-blue-600 hover:bg-blue-700 transition-colors"
+                disabled={isLoading}
+                type="submit"
+              >
+                {isLoading ? "Creating account..." : "Create account"}
+              </Button>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`pl-10 pr-10 ${errors?.confirmPassword ? "border-red-500" : ""}`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
-              </div>
-              {errors?.confirmPassword && (
-                <p className="text-sm text-red-500 flex items-center">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  {errors.confirmPassword}
-                </p>
-              )}
-            </div>
-
-            <Button
-              onClick={handleSubmit}
-              className="w-full h-11 bg-blue-600 hover:bg-blue-700 transition-colors"
-              disabled={isLoading}
-            >
-              {isLoading ? "Creating account..." : "Create account"}
-            </Button>
-          </div>
+          </form>
 
           <div className="text-center text-sm text-gray-600">
             Already have an account?{" "}

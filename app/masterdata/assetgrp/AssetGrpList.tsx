@@ -12,6 +12,8 @@ import {
   tw_blue_button,
   tw_purple_button,
   tw_table_detail,
+  tw_table,
+  tw_alt_rows,
 } from "@/lib/tw-constants";
 import Link from "next/link";
 
@@ -21,6 +23,7 @@ export default function AssetGrpList() {
   const [refreshKey, setRefreshKey] = useState(0);
   const stub = "/masterdata/assetgrps/";
   const [isopen, setOpen] = useState(false);
+  const tw_td_buttons = `${tw_table_detail} flex flex-row-reverse`;
 
   // Retrieve Initial Data and any changes thereafter (updates/dels)
   const [keyValue, setKeyValue] = useState<number>(0); // used for re-rending dialog box
@@ -84,7 +87,7 @@ export default function AssetGrpList() {
         />
       )}
 
-      <Card className="h-full w-full overflow-scroll">
+      <Card className="h-full w-5/6 overflow-scroll">
         <table>
           <thead>
             <tr>
@@ -105,11 +108,11 @@ export default function AssetGrpList() {
               const classes = tw_table_detail;
 
               return (
-                <tr key={grps.assetgrpsid}>
+                <tr key={grps.assetgrpsid} className={tw_alt_rows}>
                   <td className={classes}>{grps.assetgrpsid}</td>
                   <td className={classes}>{grps.shortname}</td>
                   <td className={classes}>{grps.longname}</td>
-                  <td className="flex flex-row-reverse">
+                  <td className={tw_td_buttons}>
                     <button
                       onClick={(e) => {
                         e.preventDefault;

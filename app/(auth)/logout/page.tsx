@@ -3,24 +3,25 @@
 import React, { useState } from "react";
 import { signOut } from "@/lib/auth-client";
 import ConfirmDialog from "@/app/components/ConfirmDialog";
-import { redirect } from "next/navigation";
-import router from "next/router";
+import { useRouter } from "next/navigation";
+import { delCookie } from "@/lib/getTokens";
 
 const page = () => {
   const [open, setOpen] = useState(true);
+  const router = useRouter();
 
   async function handleClose() {
     console.log("CLOSE");
     await signOut({
       fetchOptions: {
         onSuccess: () => {
-          console.log("CLOSE onSucess");
-          router.push("/"); // redirect to login page
+          delCookie("accessToken");
+          console.log("CLOSE onSuccess");
+          setOpen(false);
+          router.refresh();
         },
       },
     });
-    setOpen(false);
-    redirect("/");
   }
 
   return (

@@ -54,16 +54,17 @@ export interface CompanyInfo {
       Id: string;
       SyncToken: string;
       MetaData: [{
-      CreateTime:  string;
-      LastUpdatedTime:  string;
-    }];
+                CreateTime:  string;
+                LastUpdatedTime:  string;
+              }];
     };
 
 type Metadata = {
     CreateTime: string;
     LastUpdatedTime: string;
   };
-type AccountRef = { value: string, name: string; };
+type IntuitRef = { value: string, name: string; };
+
 export interface Item {    
   Name: string;
   Description: string;
@@ -72,7 +73,7 @@ export interface Item {
   Taxable: boolean;
   UnitPrice: number;
   Type: string;
-  IncomeAccountRef: AccountRef;
+  IncomeAccountRef: IntuitRef;
   PurchaseCost: number;
   TrackQtyOnHand: boolean;
   domain: string;
@@ -81,4 +82,19 @@ export interface Item {
   SyncToken: string;
   MetaData: Metadata;
 }
+
+export type AssetCatType = {
+  Id: string; 
+  Type: string; 
+  Name: string; 
+  SubItem: boolean; 
+  ParentRef: IntuitRef;
+  FullyQualifiedName: string; 
+  "domain": string; 
+  Level: number, 
+  sparse: boolean, 
+  Active: boolean, 
+  SyncToken: string; 
+  MetaData: Metadata
+}[];
   
